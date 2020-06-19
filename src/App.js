@@ -1,26 +1,52 @@
-import React from 'react';
+import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {
+      Place: '',
+    }
+  }
+  toWeather = (City) => {
+    return weather;
+  }
+
+  handleWeatherChange(Place) {
+    this.setState({ weather });
+  }
+
+  ComponetShouldUpdate(nextProps, nextState) {
+    return this.props.name !== nextProps.name || this.state.Place !== nextState.Weather;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.initial && nextProps.initialCount > this.state.Place) {
+      this.setState({ Weather });
+    }
+  }
+
+  componentDidUpdate(PreProps, prevState) {
+    fetch("https://openweathermap.org/current")
+      .then(res => res.json()).then((result) => { this.setState({ isLoaded: true, items: result.items }); },
+        //to handle errors 
+        (error) => {
+          this.setState({
+            isLoaded
+          })
+        }
+  }
+  
+  render() {
+    return (
+      <CitInput
+      Place={'City'}
+      onPlaceChange={this.handleCityChange}
+      />
+    );
+  }
 }
 
 export default App;
